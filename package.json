@@ -1,7 +1,7 @@
 {
-  "name": "vanilla-webpack-template",
+  "name": "weather-app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Weather Web App that will also generate funny gifs related to the current weather.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
-  "author": "",
+  "author": "Yves Casio",
   "license": "ISC",
   "packageManager": "pnpm@10.16.1",
   "devDependencies": {
@@ -22,5 +22,8 @@
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2",
     "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }
