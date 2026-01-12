@@ -1,3 +1,5 @@
+import { downloadJson } from "../utils/export.js";
+
 const API_KEY = process.env.VISUAL_CROSSING_API_KEY;
 
 const getWeatherByLocation = async function (location) {
@@ -7,6 +9,7 @@ const getWeatherByLocation = async function (location) {
 		);
 
 		const weather = await response.json();
+		downloadJson(weather);
 		console.log(weather);
 
 		return weather;
@@ -15,4 +18,4 @@ const getWeatherByLocation = async function (location) {
 	}
 };
 
-// getWeatherByLocation("Los Angeles");
+// getWeatherByLocation("Caloocan");

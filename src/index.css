@@ -1,3 +1,125 @@
+/* RESETS */
+button,
+p,
+h1,
+h2 {
+	padding: 0;
+	margin: 0;
+}
+
+button {
+	border: none;
+	cursor: pointer;
+}
+
+/* ====== */
+:root {
+	font-family: "Enriqueta", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+		sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+	color: rgb(var(--on-surface));
+
+	/* ---- Elevation styles ---- */
+	--elevation-1: 0px 1px 2px rgba(0, 0, 0, 0.12),
+		0px 1px 3px rgba(0, 0, 0, 0.08);
+	--elevation-2: 0px 2px 4px rgba(0, 0, 0, 0.12),
+		0px 3px 6px rgba(0, 0, 0, 0.08);
+	--elevation-3: 0px 4px 8px rgba(0, 0, 0, 0.12),
+		0px 6px 12px rgba(0, 0, 0, 0.08);
+	--elevation-4: 0px 6px 12px rgba(0, 0, 0, 0.14),
+		0px 10px 16px rgba(0, 0, 0, 0.1);
+	--elevation-5: 0px 8px 16px rgba(0, 0, 0, 0.16),
+		0px 14px 20px rgba(0, 0, 0, 0.12);
+}
+
 body {
-	background-color: antiquewhite;
+	height: 100dvh;
+	padding: 0 1rem;
+	place-content: center;
+}
+
+.edit-location-fab {
+	position: absolute;
+	right: 1rem;
+	bottom: 1rem;
+
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	box-shadow: var(--elevation-3);
+	background-color: rgb(var(--primary));
+	color: rgb(var(--on-primary));
+}
+
+.weather-data-card {
+	width: 100%;
+	padding: 1rem;
+	background-color: rgb(var(--surface-container));
+	margin: auto;
+	box-shadow: var(--elevation-1);
+	border-radius: 1rem;
+}
+
+.weather-data-card > .date-selection {
+	display: flex;
+	justify-content: space-between;
+}
+
+.arrow-button {
+	background-color: rgb(var(--primary));
+	color: rgb(var(--on-primary));
+	border-radius: 0.25rem;
+}
+
+.weather-data-card > .heading-subtitle {
+	text-align: center;
+}
+
+.heading-subtitle > h1 {
+	color: rgb(var(--primary));
+}
+
+.heading-subtitle > p {
+	color: rgb(var(--outline));
+	font-weight: bold;
+	font-size: 0.75rem;
+}
+
+.weather-data-card > .data {
+	margin: 2rem 0;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 0.5rem;
+}
+
+.data > div {
+	background-color: rgb(var(--primary) / 0.6);
+	border: 0.25rem solid rgb(var(--primary));
+	border-radius: 50%;
+	color: rgb(var(--on-primary));
+	width: 94px;
+	height: 94px;
+	display: flex;
+	justify-self: center;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+}
+
+.data > div > p {
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.data h2,
+.data .material-symbols-outlined {
+	display: flex;
+	font-size: 0.75rem;
+	align-items: center;
+	justify-content: center;
+	gap: 0.25rem;
+}
+
+.data .material-symbols-outlined {
+	color: rgb(var(--primary-container));
 }
