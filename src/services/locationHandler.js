@@ -1,4 +1,4 @@
-import { weatherDataHandler } from "..";
+import { weatherDataHandler, weatherDomHandler } from "..";
 import { getWeatherByLocation } from "../api/weatherApi";
 import { getUserCityLocation } from "../utils/geolocation";
 import { closeDialog, openDialog } from "../utils/modal.js";
@@ -17,8 +17,8 @@ class LocationHandler {
 	initLocationHandler() {
 		this.fabElement.addEventListener("click", () => {
 			openDialog(this.dialogElement);
-
-			let userCityLocation;
+			/* 
+			let userCityLocation = getUserCityLocation();
 			getUserCityLocation()
 				.then((res) => {
 					userCityLocation = res;
@@ -27,7 +27,8 @@ class LocationHandler {
 					if (userCityLocation) {
 						this.dialogInputElement.value = userCityLocation;
 					}
-				});
+				}); 
+				*/
 		});
 
 		this.dialogCloseBtn.addEventListener("click", () => {
@@ -39,10 +40,10 @@ class LocationHandler {
 
 			const location = this.dialogInputElement.value;
 			const weatherData = await getWeatherByLocation(location);
+			weatherDataHandler.updateWeatherData(weatherData);
 
 			closeDialog(this.dialogElement);
-
-			weatherDataHandler.updateWeatherData(weatherData);
+			weatherDomHandler.renderDataToMainElement();
 		});
 	}
 }
