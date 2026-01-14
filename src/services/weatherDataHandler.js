@@ -1,11 +1,11 @@
 class WeatherDataHandler {
-	weatherData;
+	selectedDay = 0;
+	weatherData = {};
 
 	constructor() {}
 
 	updateWeatherData(weatherData) {
 		this.weatherData = weatherData;
-		this.currentWeatherData = this.weatherData.days[0];
 	}
 
 	getWeatherData() {
@@ -13,7 +13,23 @@ class WeatherDataHandler {
 	}
 
 	getWeatherDataToday() {
-		return this.currentWeatherData;
+		return this.weatherData.days[0];
+	}
+
+	getWeatherDataBySelectedDay() {
+		return this.weatherData.days[this.selectedDay];
+	}
+
+	selectNextDay() {
+		if (this.selectedDay < this.weatherData.days.length) {
+			this.selectedDay++;
+		}
+	}
+
+	selectPreviousDay() {
+		if (this.selectedDay !== 0) {
+			this.selectedDay--;
+		}
 	}
 }
 
