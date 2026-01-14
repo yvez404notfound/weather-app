@@ -9,9 +9,6 @@ const getWeatherByLocation = async function (location) {
 		);
 
 		const weather = await response.json();
-		downloadJson(weather);
-		console.log(weather);
-
 		return weather;
 	} catch (error) {
 		console.error(error);
@@ -19,3 +16,4 @@ const getWeatherByLocation = async function (location) {
 };
 
 // getWeatherByLocation("Caloocan");
+export { getWeatherByLocation };

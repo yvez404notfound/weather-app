@@ -7,6 +7,17 @@ h2 {
 	margin: 0;
 }
 
+dialog {
+	border: none;
+	position: absolute;
+	left: 0;
+	padding: 0;
+}
+
+dialog::backdrop {
+	background-color: rgb(var(--scrim) / 60%);
+}
+
 a {
 	color: inherit;
 	text-decoration: none;
@@ -210,4 +221,35 @@ footer > a > svg {
 	fill: rgb(var(--on-secondary));
 	width: auto;
 	height: 1.5rem;
+}
+
+dialog.edit-location-modal {
+	background-color: rgb(var(--primary-container));
+	color: rgb(var(--on-primary-container));
+	box-shadow: var(--elevation-3);
+	border-radius: 0.25rem;
+	position: relative;
+	width: 80%;
+	padding: 1rem;
+}
+
+.edit-location-modal > .close-btn {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	background-color: rgb(var(--primary-container));
+	color: rgb(var(--primary));
+}
+
+.edit-location-modal > form {
+	margin-top: 0.25rem;
+	display: flex;
+	gap: 0.25rem;
+}
+
+.edit-location-modal .confirm-location-btn {
+	background-color: rgb(var(--primary));
+	color: rgb(var(--on-primary));
+	border-radius: 0.25rem;
+	cursor: pointer;
 }
