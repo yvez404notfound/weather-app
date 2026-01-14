@@ -21,9 +21,11 @@
 		<title>Vanilla Webpack Template</title>
 	</head>
 	<body>
+		<!-- Edit location FAB -->
 		<button class="edit-location-fab">
 			<span class="material-symbols-outlined"> edit_location </span>
 		</button>
+
 		<main class="weather-data-card">
 			<div class="date-selection">
 				<button class="arrow-button material-symbols-outlined">
@@ -119,5 +121,25 @@
 				><span>yvez404notfound</span>
 			</a>
 		</footer>
+
+		<!-- Edit location modal -->
+		<dialog
+			class="edit-location-modal"
+			id="edit-location-modal">
+			<button class="close-btn material-symbols-outlined">close</button>
+			<label for="city">Select a City</label>
+			<form>
+				<input
+					type="text"
+					name="city"
+					id="city"
+					required />
+				<button
+					type="submit"
+					class="confirm-location-btn material-symbols-outlined">
+					location_on
+				</button>
+			</form>
+		</dialog>
 	</body>
 </html>
