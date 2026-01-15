@@ -1,3 +1,5 @@
+import { compareIfTimeIsInCurrentHour } from "../utils/date";
+
 class WeatherDataHandler {
 	selectedDay = 0;
 	weatherData = {};
@@ -17,7 +19,16 @@ class WeatherDataHandler {
 	}
 
 	getWeatherDataBySelectedDay() {
-		return this.weatherData.days[this.selectedDay];
+		let weatherDataBySelectedDay = this.weatherData.days[this.selectedDay];
+
+		// Select only the data for the current time
+		weatherDataBySelectedDay.hours.forEach((timestamp) => {
+			if (compareIfTimeIsInCurrentHour(timestamp.datetime)) {
+				weatherDataBySelectedDay = timestamp;
+			}
+		});
+
+		return weatherDataBySelectedDay;
 	}
 
 	selectNextDay() {

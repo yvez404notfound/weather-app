@@ -19,6 +19,7 @@ import WeatherDomHandler from "./services/weatherDomHandler.js";
 /* ============= */
 
 import testWeatherData from "./data/testWeatherData.json";
+import { compareIfTimeIsInCurrentHour } from "./utils/date.js";
 
 const bodyElement = document.querySelector("body");
 const editLocationModalElement = document.querySelector(".edit-location-modal");

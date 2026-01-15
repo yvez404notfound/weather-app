@@ -1,6 +1,6 @@
 import { weatherDataHandler, weatherDomHandler } from "..";
 import { getWeatherByLocation } from "../api/weatherApi";
-import { getUserCityLocation } from "../utils/geolocation";
+// import { getUserCityLocation } from "../utils/geolocation";
 import { closeDialog, openDialog } from "../utils/modal.js";
 
 class LocationHandler {
