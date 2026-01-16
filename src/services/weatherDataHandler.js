@@ -22,11 +22,15 @@ class WeatherDataHandler {
 		let weatherDataBySelectedDay = this.weatherData.days[this.selectedDay];
 
 		// Select only the data for the current time
-		weatherDataBySelectedDay.hours.forEach((timestamp) => {
+		weatherDataBySelectedDay.hours.some((timestamp) => {
 			if (compareIfTimeIsInCurrentHour(timestamp.datetime)) {
 				weatherDataBySelectedDay = timestamp;
+				return true;
 			}
 		});
+
+		weatherDataBySelectedDay["description"] =
+			this.weatherData.days[this.selectedDay].description;
 
 		return weatherDataBySelectedDay;
 	}

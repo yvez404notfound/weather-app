@@ -29,6 +29,38 @@ class WeatherDomHandler {
 			this.precipitationDataContainerElement.querySelector(
 				"p:nth-of-type(2) > span"
 			);
+		this.precipitationProbabilityTextElement =
+			this.precipitationDataContainerElement.querySelector(
+				"p:nth-of-type(3) > span"
+			);
+
+		this.snowDataContainerElement =
+			this.weatherDataContainerElement.querySelector(".snow");
+		this.snowAmmountTextElement = this.snowDataContainerElement.querySelector(
+			"p:nth-of-type(2) > span"
+		);
+		this.snowDepthTextElement = this.snowDataContainerElement.querySelector(
+			"p:nth-of-type(3) > span"
+		);
+
+		this.windDataContainerElement =
+			this.weatherDataContainerElement.querySelector(".wind");
+		this.windSpeedTextElement = this.windDataContainerElement.querySelector(
+			"p:nth-of-type(1) > span"
+		);
+		this.windGustTextElement = this.windDataContainerElement.querySelector(
+			"p:nth-of-type(2) > span"
+		);
+		this.windDirectionTextElement = this.windDataContainerElement.querySelector(
+			"p:nth-of-type(3) > span"
+		);
+
+		this.longDescriptionTextElement =
+			this.mainElement.querySelector(".long-description");
+
+		this.gifImageElement = this.mainElement.querySelector(
+			".generated-gif-image"
+		);
 	}
 
 	initEvents() {
@@ -60,6 +92,12 @@ class WeatherDomHandler {
 		this.renderHumidityData(weatherData);
 
 		this.renderPrecipitationData(weatherData);
+
+		this.renderSnowData(weatherData);
+
+		this.renderWindData(weatherData);
+
+		this.renderLongDescription(weatherData);
 	}
 
 	renderAddressData(address) {
@@ -84,6 +122,29 @@ class WeatherDomHandler {
 
 	renderPrecipitationData(weatherData) {
 		this.precipitationAmmountTextElement.textContent = weatherData.precip;
+		this.precipitationProbabilityTextElement.textContent = `${weatherData.precipprob}%`;
+	}
+
+	renderSnowData(weatherData) {
+		this.snowAmmountTextElement.textContent = weatherData.snow;
+		this.snowDepthTextElement.textContent = weatherData.snowdepth;
+	}
+
+	renderWindData(weatherData) {
+		this.windSpeedTextElement.textContent = weatherData.windspeed;
+		this.windGustTextElement.textContent = weatherData.windgust;
+
+		this.windDirectionTextElement.innerHTML = `
+			${weatherData.winddir}°
+		`;
+	}
+
+	renderLongDescription(weatherData) {
+		this.longDescriptionTextElement.textContent = weatherData.description;
+	}
+
+	renderGeneratedGif(weatherData) {
+		const gifData = getGifImage(weatherData.conditions);
 	}
 }
 
