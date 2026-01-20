@@ -15,3 +15,5 @@ const getGifImage = async function (searchQuery) {
 		console.error(error);
 	}
 };
+
+export { getGifImage };

@@ -31,6 +31,8 @@ class WeatherDataHandler {
 
 		weatherDataBySelectedDay["description"] =
 			this.weatherData.days[this.selectedDay].description;
+		weatherDataBySelectedDay["datetime"] =
+			this.weatherData.days[this.selectedDay].datetime;
 
 		return weatherDataBySelectedDay;
 	}
