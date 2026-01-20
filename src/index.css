@@ -55,6 +55,7 @@ body {
 
 .edit-location-fab {
 	position: fixed;
+	z-index: 2;
 	right: 1rem;
 	bottom: 1rem;
 
@@ -69,10 +70,35 @@ main {
 	margin: 2rem 1rem;
 }
 
+.glassmorphism-bg {
+	--border-width: 1px;
+	position: relative;
+
+	background: rgb(var(--surface-container) / 0.25);
+	backdrop-filter: blur(1rem);
+}
+
+.glassmorphism-bg::before {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	inset: 0;
+	border-radius: inherit;
+	border: var(--border-width) solid transparent;
+	background: linear-gradient(
+			rgb(var(--surface-container) / 0.25),
+			rgb(var(--surface-container) / 0.5)
+		)
+		border-box;
+	mask: linear-gradient(black, black) border-box,
+		linear-gradient(black, black) padding-box;
+	mask-composite: subtract;
+}
+
 .weather-data-card {
 	padding: 1rem;
-	background-color: rgb(var(--surface-container));
-	box-shadow: var(--elevation-1);
+	/* background-color: rgb(var(--surface-container));
+	box-shadow: var(--elevation-1); */
 	border-radius: 1rem;
 }
 
@@ -198,6 +224,7 @@ main {
 .weather-data-card > .generated-gif-image {
 	width: 100%;
 	height: auto;
+	border-radius: 0.25rem;
 }
 
 footer {
