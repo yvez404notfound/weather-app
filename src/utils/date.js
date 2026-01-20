@@ -1,4 +1,4 @@
-import { format, getTime } from "date-fns";
+import { format, getTime, isSameDay } from "date-fns";
 
 const getCurrentTimeHour = function () {
 	const currentTimeHour = getTime(new Date());
@@ -13,4 +13,13 @@ const compareIfTimeIsInCurrentHour = function (selectedTime) {
 	return selectedTimeHour === currentTimeHour ? true : false;
 };
 
-export { compareIfTimeIsInCurrentHour };
+const formatDate = function (date, desiredFormat) {
+	return format(new Date(date), desiredFormat);
+};
+
+const compareDateIfToday = function (date) {
+	const dateNow = new Date();
+	return isSameDay(new Date(date), dateNow);
+};
+
+export { compareDateIfToday, compareIfTimeIsInCurrentHour, formatDate };
