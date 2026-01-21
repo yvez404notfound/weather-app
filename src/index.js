@@ -2,8 +2,12 @@ import "./assets/styles/modern-normalize.css";
 import "./index.css";
 
 /* Color Schemes */
-import "./assets/styles/clear-dark.css";
-import "./assets/styles/clear-day.css";
+import "./assets/styles/clear.css";
+import "./assets/styles/cloudy.css";
+import "./assets/styles/fog.css";
+import "./assets/styles/rain.css";
+import "./assets/styles/snow.css";
+import "./assets/styles/wind.css";
 /* ============= */
 
 /* APIs */
@@ -30,7 +34,7 @@ const dynamicColorThemeGenerator = new DynamicColorThemeGenerator(bodyElement);
 
 const locationHandler = new LocationHandler(
 	editLocationModalElement,
-	editLocationFabElement
+	editLocationFabElement,
 );
 
 const weatherDataHandler = new WeatherDataHandler();
@@ -38,10 +42,6 @@ const weatherDomHandler = new WeatherDomHandler(weatherDataCardElement);
 
 dynamicColorThemeGenerator.initDefaultTheme();
 locationHandler.initLocationHandler();
-
 weatherDomHandler.initEvents();
 
-window.testWeatherData = testWeatherData;
-window.weatherDataHandler1 = weatherDataHandler;
-
-export { weatherDataHandler, weatherDomHandler };
+export { dynamicColorThemeGenerator, weatherDataHandler, weatherDomHandler };

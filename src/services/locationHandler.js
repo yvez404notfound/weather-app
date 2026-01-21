@@ -1,4 +1,8 @@
-import { weatherDataHandler, weatherDomHandler } from "..";
+import {
+	dynamicColorThemeGenerator,
+	weatherDataHandler,
+	weatherDomHandler,
+} from "..";
 import { getWeatherByLocation } from "../api/weatherApi";
 // import { getUserCityLocation } from "../utils/geolocation";
 import { closeDialog, openDialog } from "../utils/modal.js";
