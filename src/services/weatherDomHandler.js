@@ -1,4 +1,4 @@
-import { weatherDataHandler } from "..";
+import { dynamicColorThemeGenerator, weatherDataHandler } from "..";
 import { getGifImage } from "../api/giphyApi";
 import { compareDateIfToday, formatDate } from "../utils/date";
 
@@ -12,13 +12,13 @@ class WeatherDomHandler {
 
 		// Date element
 		this.dateTextElement = this.mainElement.querySelector(
-			".date-selection > p"
+			".date-selection > p",
 		);
 
 		// Heading and description element
 		this.heading1Element = this.mainElement.querySelector("h1");
 		this.subtitleElement = this.mainElement.querySelector(
-			".heading-subtitle > p"
+			".heading-subtitle > p",
 		);
 
 		// Data badge and cards elements
@@ -35,47 +35,47 @@ class WeatherDomHandler {
 			this.weatherDataContainerElement.querySelector(".precipitation");
 		this.precipitationClassificationTextElement =
 			this.precipitationDataContainerElement.querySelector(
-				"p:nth-of-type(1) > span:last-of-type"
+				"p:nth-of-type(1) > span:last-of-type",
 			);
 		this.precipitationAmmountTextElement =
 			this.precipitationDataContainerElement.querySelector(
-				"p:nth-of-type(2) > span"
+				"p:nth-of-type(2) > span",
 			);
 		this.precipitationProbabilityTextElement =
 			this.precipitationDataContainerElement.querySelector(
-				"p:nth-of-type(3) > span"
+				"p:nth-of-type(3) > span",
 			);
 
 		this.snowDataContainerElement =
 			this.weatherDataContainerElement.querySelector(".snow");
 		this.snowClassificationTextElement =
 			this.snowDataContainerElement.querySelector(
-				"p:nth-of-type(1) > span:last-of-type"
+				"p:nth-of-type(1) > span:last-of-type",
 			);
 		this.snowAmmountTextElement = this.snowDataContainerElement.querySelector(
-			"p:nth-of-type(2) > span"
+			"p:nth-of-type(2) > span",
 		);
 		this.snowDepthTextElement = this.snowDataContainerElement.querySelector(
-			"p:nth-of-type(3) > span"
+			"p:nth-of-type(3) > span",
 		);
 
 		this.windDataContainerElement =
 			this.weatherDataContainerElement.querySelector(".wind");
 		this.windSpeedTextElement = this.windDataContainerElement.querySelector(
-			"p:nth-of-type(1) > span"
+			"p:nth-of-type(1) > span",
 		);
 		this.windGustTextElement = this.windDataContainerElement.querySelector(
-			"p:nth-of-type(2) > span"
+			"p:nth-of-type(2) > span",
 		);
 		this.windDirectionTextElement = this.windDataContainerElement.querySelector(
-			"p:nth-of-type(3) > span"
+			"p:nth-of-type(3) > span",
 		);
 
 		this.longDescriptionTextElement =
 			this.mainElement.querySelector(".long-description");
 
 		this.gifImageElement = this.mainElement.querySelector(
-			".generated-gif-image"
+			".generated-gif-image",
 		);
 	}
 
@@ -120,6 +120,8 @@ class WeatherDomHandler {
 		this.renderLongDescription(weatherData);
 
 		this.renderGeneratedGif(weatherData);
+
+		dynamicColorThemeGenerator.changeTheme(weatherData.icon);
 	}
 
 	renderDateData(weatherData) {
@@ -128,7 +130,7 @@ class WeatherDomHandler {
 		} else {
 			this.dateTextElement.textContent = formatDate(
 				weatherData.datetime,
-				"MMM dd"
+				"MMM dd",
 			);
 		}
 	}
@@ -162,7 +164,7 @@ class WeatherDomHandler {
 
 	renderSnowData(weatherData) {
 		this.snowClassificationTextElement.textContent = classifySnow(
-			weatherData.snow
+			weatherData.snow,
 		);
 		this.snowAmmountTextElement.textContent = weatherData.snow;
 		this.snowDepthTextElement.textContent = weatherData.snowdepth;
