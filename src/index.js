@@ -22,9 +22,6 @@ import WeatherDataHandler from "./services/weatherDataHandler.js";
 import WeatherDomHandler from "./services/weatherDomHandler.js";
 /* ============= */
 
-import testWeatherData from "./data/testWeatherData.json";
-import { compareIfTimeIsInCurrentHour } from "./utils/date.js";
-
 const bodyElement = document.querySelector("body");
 const editLocationModalElement = document.querySelector(".edit-location-modal");
 const editLocationFabElement = document.querySelector(".edit-location-fab");
@@ -43,5 +40,7 @@ const weatherDomHandler = new WeatherDomHandler(weatherDataCardElement);
 dynamicColorThemeGenerator.initDefaultTheme();
 locationHandler.initLocationHandler();
 weatherDomHandler.initEvents();
+
+locationHandler.askForLocation();
 
 export { dynamicColorThemeGenerator, weatherDataHandler, weatherDomHandler };

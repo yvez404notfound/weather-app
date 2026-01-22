@@ -38,7 +38,7 @@ class WeatherDataHandler {
 	}
 
 	selectNextDay() {
-		if (this.selectedDay < this.weatherData.days.length) {
+		if (this.selectedDay < this.weatherData.days.length - 1) {
 			this.selectedDay++;
 		}
 	}

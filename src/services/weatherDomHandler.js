@@ -144,38 +144,38 @@ class WeatherDomHandler {
 	}
 
 	renderTempData(weatherData) {
-		this.temperatureTextElement.textContent = `${weatherData.temp}°`;
+		this.temperatureTextElement.textContent = `${weatherData.temp ?? 0}°`;
 	}
 
 	renderDewData(weatherData) {
-		this.dewTextElement.textContent = `${weatherData.dew}°`;
+		this.dewTextElement.textContent = `${weatherData.dew ?? 0}°`;
 	}
 
 	renderHumidityData(weatherData) {
-		this.humidityTextElement.textContent = `${weatherData.humidity}%`;
+		this.humidityTextElement.textContent = `${weatherData.humidity ?? 0}%`;
 	}
 
 	renderPrecipitationData(weatherData) {
 		this.precipitationClassificationTextElement.textContent =
-			classifyPrecipitation(weatherData.precip);
-		this.precipitationAmmountTextElement.textContent = weatherData.precip;
-		this.precipitationProbabilityTextElement.textContent = `${weatherData.precipprob}%`;
+			classifyPrecipitation(weatherData.precip ?? 0);
+		this.precipitationAmmountTextElement.textContent = weatherData.precip ?? 0;
+		this.precipitationProbabilityTextElement.textContent = `${weatherData.precipprob ?? 0}%`;
 	}
 
 	renderSnowData(weatherData) {
 		this.snowClassificationTextElement.textContent = classifySnow(
-			weatherData.snow,
+			weatherData.snow ?? 0,
 		);
-		this.snowAmmountTextElement.textContent = weatherData.snow;
-		this.snowDepthTextElement.textContent = weatherData.snowdepth;
+		this.snowAmmountTextElement.textContent = weatherData.snow ?? 0;
+		this.snowDepthTextElement.textContent = weatherData.snowdepth ?? 0;
 	}
 
 	renderWindData(weatherData) {
-		this.windSpeedTextElement.textContent = weatherData.windspeed;
-		this.windGustTextElement.textContent = weatherData.windgust;
+		this.windSpeedTextElement.textContent = weatherData.windspeed ?? 0;
+		this.windGustTextElement.textContent = weatherData.windgust ?? 0;
 
 		this.windDirectionTextElement.innerHTML = `
-			${weatherData.winddir}<sup>${classifyWindDirection(weatherData.winddir)}</sup>°
+			${weatherData.winddir}°<sup>${classifyWindDirection(weatherData.winddir)}</sup>
 		`;
 	}
 

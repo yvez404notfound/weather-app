@@ -20,7 +20,7 @@ class DynamicColorThemeGenerator {
 	}
 
 	initDefaultTheme() {
-		this.changeTheme("clear");
+		this.changeTheme("cloudy");
 	}
 
 	changeTheme(theme) {

@@ -4,6 +4,7 @@ import {
 	weatherDomHandler,
 } from "..";
 import { getWeatherByLocation } from "../api/weatherApi";
+import { endLoading, startLoading } from "../utils/loader.js";
 // import { getUserCityLocation } from "../utils/geolocation";
 import { closeDialog, openDialog } from "../utils/modal.js";
 
@@ -11,6 +12,7 @@ class LocationHandler {
 	constructor(dialogElement, fabElement) {
 		this.dialogElement = dialogElement;
 		this.fabElement = fabElement;
+		this.isCloseBtnLocked = true;
 
 		this.dialogCloseBtn = this.dialogElement.querySelector(".close-btn");
 		this.dialogInputElement = this.dialogElement.querySelector("form > input");
@@ -20,7 +22,7 @@ class LocationHandler {
 
 	initLocationHandler() {
 		this.fabElement.addEventListener("click", () => {
-			openDialog(this.dialogElement);
+			this.askForLocation();
 			/* 
 			let userCityLocation = getUserCityLocation();
 			getUserCityLocation()
@@ -41,14 +43,32 @@ class LocationHandler {
 
 		this.dialogConfirmLocationBtn.addEventListener("click", async (e) => {
 			e.preventDefault();
+			startLoading(".weather-data-card");
 
 			const location = this.dialogInputElement.value;
-			const weatherData = await getWeatherByLocation(location);
-			weatherDataHandler.updateWeatherData(weatherData);
 
-			closeDialog(this.dialogElement);
-			weatherDomHandler.renderDataToMainElement();
+			try {
+				closeDialog(this.dialogElement);
+
+				const weatherData = await getWeatherByLocation(location);
+
+				weatherDataHandler.updateWeatherData(weatherData);
+				weatherDomHandler.renderDataToMainElement();
+
+				endLoading(".weather-data-card");
+				this.isCloseBtnLocked = false;
+			} catch (error) {
+				this.askForLocation();
+				alert(
+					"Error fetching the Weather data. Please make sure that the City you entered exists.",
+				);
+			}
 		});
+	}
+
+	askForLocation() {
+		openDialog(this.dialogElement);
+		this.dialogCloseBtn.disabled = this.isCloseBtnLocked;
 	}
 }
 
