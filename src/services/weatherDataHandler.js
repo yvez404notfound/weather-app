@@ -50,7 +50,7 @@ class WeatherDataHandler {
 	}
 
 	isSelectedDayOnMinimumLimit() {
-		if (this.selectedDay === 0) {
+		if (this.selectedDay < 0) {
 			return true;
 		}
 		return false;
