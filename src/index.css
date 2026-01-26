@@ -70,6 +70,12 @@ body {
 	color: rgb(var(--on-primary));
 }
 
+.edit-location-fab:hover {
+	background-color: hsl(from rgb(var(--primary)) h s 30%);
+	box-shadow: var(--elevation-4);
+	scale: 1.05;
+}
+
 .convert-temp-fab {
 	font-weight: bold;
 	width: 2.5rem;
@@ -79,6 +85,13 @@ body {
 	color: rgb(var(--on-primary-container));
 	border: 2px solid rgb(var(--on-primary-container));
 	box-shadow: var(--elevation-2);
+}
+
+.convert-temp-fab:hover {
+	color: hsl(from rgb(var(--on-primary-container)) h s 30%);
+	border: 2px solid hsl(from rgb(var(--on-primary-container)) h s 30%);
+	box-shadow: var(--elevation-4);
+	scale: 1.05;
 }
 
 main {
@@ -127,6 +140,11 @@ main {
 	background-color: rgb(var(--primary));
 	color: rgb(var(--on-primary));
 	border-radius: 0.25rem;
+}
+
+.arrow-button:hover {
+	background-color: hsl(from rgb(var(--primary)) h s 30%);
+	scale: 1.05;
 }
 
 .weather-data-card > .heading-subtitle {
@@ -238,8 +256,8 @@ main {
 }
 
 .weather-data-card > .generated-gif-image {
-	width: 80%;
-	height: 400px;
+	width: 86%;
+	height: 380px;
 	border-radius: 0.25rem;
 	margin: 0 auto;
 }
@@ -300,6 +318,10 @@ dialog.edit-location-modal {
 	color: rgb(var(--primary));
 }
 
+.close-btn:hover {
+	color: rgb(var(--error));
+}
+
 .close-btn:disabled {
 	display: none;
 	color: rgb(var(--outline));
@@ -318,6 +340,11 @@ dialog.edit-location-modal {
 	cursor: pointer;
 	font-size: 1rem;
 	padding: 0.25rem;
+}
+
+.confirm-location-btn:hover {
+	background-color: hsl(from rgb(var(--primary)) h s 30%);
+	scale: 1.05;
 }
 
 /* SKELETON LOADER ANIMATION KEYFRAME */

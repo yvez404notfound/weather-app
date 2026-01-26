@@ -1,12 +1,14 @@
 import { dynamicColorThemeGenerator, weatherDataHandler } from "..";
 import { getGifImage } from "../api/giphyApi";
 import { compareDateIfToday, formatDate } from "../utils/date";
+import { convertTemp } from "../utils/temperature";
 
 class WeatherDomHandler {
 	temperatureMeasure = "F";
 
-	constructor(mainElement) {
+	constructor(mainElement, convertTempElement) {
 		this.mainElement = mainElement;
+		this.convertTempElement = convertTempElement;
 
 		// Date Buttons
 		this.nextDayBtn = this.mainElement.querySelector(".next-day-btn");
@@ -84,56 +86,86 @@ class WeatherDomHandler {
 	initEvents() {
 		this.addNextDayBtnEvents();
 		this.addPreviousDayBtnEvents();
+		this.addConvertTempFabEvents();
 	}
 
 	addNextDayBtnEvents() {
 		this.nextDayBtn.addEventListener("click", () => {
 			weatherDataHandler.selectNextDay();
-			this.renderDataToMainElement();
+
+			if (!weatherDataHandler.isSelectedDayOnMaximumLimit()) {
+				this.renderDataToMainElement();
+			} else {
+				alert("Cannot go any further.");
+			}
 		});
 	}
 
 	addPreviousDayBtnEvents() {
 		this.previousDayBtn.addEventListener("click", () => {
 			weatherDataHandler.selectPreviousDay();
+
+			if (!weatherDataHandler.isSelectedDayOnMinimumLimit()) {
+				this.renderDataToMainElement();
+			} else {
+				alert("Cannot go any further.");
+			}
+		});
+	}
+
+	addConvertTempFabEvents() {
+		this.convertTempElement.addEventListener("click", () => {
+			if (this.temperatureMeasure !== "C") {
+				this.convertTempElement.textContent = "C";
+				this.temperatureMeasure = "C";
+			} else {
+				this.convertTempElement.textContent = "F";
+				this.temperatureMeasure = "F";
+			}
+
 			this.renderDataToMainElement();
 		});
 	}
 
 	renderDataToMainElement() {
 		const { address } = weatherDataHandler.getWeatherData();
-		const weatherData = weatherDataHandler.getWeatherDataBySelectedDay();
+		const {
+			datetime,
+			conditions,
+			temp,
+			dew,
+			humidity,
+			precip,
+			precipprob,
+			snow,
+			snowdepth,
+			windspeed,
+			windgust,
+			winddir,
+			description,
+			icon,
+		} = weatherDataHandler.getWeatherDataBySelectedDay();
 
-		this.renderDateData(weatherData);
-
+		this.renderDateData(datetime);
 		this.renderAddressData(address);
-		this.renderConditionsData(weatherData);
+		this.renderConditionsData(conditions);
+		this.renderTempData(temp);
+		this.renderDewData(dew);
+		this.renderHumidityData(humidity);
+		this.renderPrecipitationData(precip, precipprob);
+		this.renderSnowData(snow, snowdepth);
+		this.renderWindData(windspeed, windgust, winddir);
+		this.renderLongDescription(description);
+		this.renderGeneratedGif(conditions);
 
-		this.renderTempData(weatherData);
-		this.renderDewData(weatherData);
-		this.renderHumidityData(weatherData);
-
-		this.renderPrecipitationData(weatherData);
-
-		this.renderSnowData(weatherData);
-
-		this.renderWindData(weatherData);
-
-		this.renderLongDescription(weatherData);
-
-		this.renderGeneratedGif(weatherData);
-
-		dynamicColorThemeGenerator.changeTheme(weatherData.icon);
+		dynamicColorThemeGenerator.changeTheme(icon);
 	}
 
-	renderDateData(weatherData) {
-		if (compareDateIfToday(weatherData.datetime)) {
+	renderDateData(datetime) {
+		if (compareDateIfToday(datetime)) {
 			this.dateTextElement.textContent = "Today";
 		} else {
-			this.dateTextElement.textContent = formatDate(
-				weatherData.datetime,
-				"MMM dd",
-			);
+			this.dateTextElement.textContent = formatDate(datetime, "MMM dd");
 		}
 	}
 
@@ -141,52 +173,50 @@ class WeatherDomHandler {
 		this.heading1Element.textContent = address;
 	}
 
-	renderConditionsData(weatherData) {
-		this.subtitleElement.textContent = weatherData.conditions;
+	renderConditionsData(conditions) {
+		this.subtitleElement.textContent = conditions;
 	}
 
-	renderTempData(weatherData) {
-		this.temperatureTextElement.textContent = `${weatherData.temp ?? 0}°`;
+	renderTempData(temp) {
+		this.temperatureTextElement.textContent = `${convertTemp(temp, this.temperatureMeasure) ?? 0}°`;
 	}
 
-	renderDewData(weatherData) {
-		this.dewTextElement.textContent = `${weatherData.dew ?? 0}°`;
+	renderDewData(dew) {
+		this.dewTextElement.textContent = `${convertTemp(dew, this.temperatureMeasure) ?? 0}°`;
 	}
 
-	renderHumidityData(weatherData) {
-		this.humidityTextElement.textContent = `${weatherData.humidity ?? 0}%`;
+	renderHumidityData(humidity) {
+		this.humidityTextElement.textContent = `${humidity ?? 0}%`;
 	}
 
-	renderPrecipitationData(weatherData) {
+	renderPrecipitationData(precip, precipprob) {
 		this.precipitationClassificationTextElement.textContent =
-			classifyPrecipitation(weatherData.precip ?? 0);
-		this.precipitationAmmountTextElement.textContent = weatherData.precip ?? 0;
-		this.precipitationProbabilityTextElement.textContent = `${weatherData.precipprob ?? 0}%`;
+			classifyPrecipitation(precip ?? 0);
+		this.precipitationAmmountTextElement.textContent = precip ?? 0;
+		this.precipitationProbabilityTextElement.textContent = `${precipprob ?? 0}%`;
 	}
 
-	renderSnowData(weatherData) {
-		this.snowClassificationTextElement.textContent = classifySnow(
-			weatherData.snow ?? 0,
-		);
-		this.snowAmmountTextElement.textContent = weatherData.snow ?? 0;
-		this.snowDepthTextElement.textContent = weatherData.snowdepth ?? 0;
+	renderSnowData(snow, snowdepth) {
+		this.snowClassificationTextElement.textContent = classifySnow(snow ?? 0);
+		this.snowAmmountTextElement.textContent = snow ?? 0;
+		this.snowDepthTextElement.textContent = snowdepth ?? 0;
 	}
 
-	renderWindData(weatherData) {
-		this.windSpeedTextElement.textContent = weatherData.windspeed ?? 0;
-		this.windGustTextElement.textContent = weatherData.windgust ?? 0;
+	renderWindData(windspeed, windgust, winddir) {
+		this.windSpeedTextElement.textContent = windspeed ?? 0;
+		this.windGustTextElement.textContent = windgust ?? 0;
 
 		this.windDirectionTextElement.innerHTML = `
-			${weatherData.winddir}°<sup>${classifyWindDirection(weatherData.winddir)}</sup>
+			${winddir}°<sup>${classifyWindDirection(winddir)}</sup>
 		`;
 	}
 
-	renderLongDescription(weatherData) {
-		this.longDescriptionTextElement.textContent = weatherData.description;
+	renderLongDescription(description) {
+		this.longDescriptionTextElement.textContent = description;
 	}
 
-	async renderGeneratedGif(weatherData) {
-		const gifData = await getGifImage(`${weatherData.conditions} weather`);
+	async renderGeneratedGif(conditions) {
+		const gifData = await getGifImage(`${conditions} weather`);
 
 		this.gifImageElement.src = gifData.data.images.original.url;
 	}
