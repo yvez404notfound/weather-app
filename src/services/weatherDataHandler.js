@@ -44,9 +44,23 @@ class WeatherDataHandler {
 	}
 
 	selectPreviousDay() {
-		if (this.selectedDay !== 0) {
+		if (this.selectedDay < 0) {
 			this.selectedDay--;
 		}
+	}
+
+	isSelectedDayOnMinimumLimit() {
+		if (this.selectedDay === 0) {
+			return true;
+		}
+		return false;
+	}
+
+	isSelectedDayOnMaximumLimit() {
+		if (this.selectedDay === this.weatherData.days.length - 1) {
+			return true;
+		}
+		return false;
 	}
 }
 

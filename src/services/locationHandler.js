@@ -1,8 +1,4 @@
-import {
-	dynamicColorThemeGenerator,
-	weatherDataHandler,
-	weatherDomHandler,
-} from "..";
+import { weatherDataHandler, weatherDomHandler } from "..";
 import { getWeatherByLocation } from "../api/weatherApi";
 import { endLoading, startLoading } from "../utils/loader.js";
 // import { getUserCityLocation } from "../utils/geolocation";
@@ -43,14 +39,14 @@ class LocationHandler {
 
 		this.dialogConfirmLocationBtn.addEventListener("click", async (e) => {
 			e.preventDefault();
-			startLoading(".weather-data-card");
 
 			const location = this.dialogInputElement.value;
 
 			try {
-				closeDialog(this.dialogElement);
-
 				const weatherData = await getWeatherByLocation(location);
+
+				closeDialog(this.dialogElement);
+				startLoading(".weather-data-card");
 
 				weatherDataHandler.updateWeatherData(weatherData);
 				weatherDomHandler.renderDataToMainElement();
@@ -58,6 +54,9 @@ class LocationHandler {
 				endLoading(".weather-data-card");
 				this.isCloseBtnLocked = false;
 			} catch (error) {
+				if (error) {
+					startLoading(".weather-data-card");
+				}
 				this.askForLocation();
 				alert(
 					"Error fetching the Weather data. Please make sure that the City you entered exists.",

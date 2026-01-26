@@ -26,6 +26,11 @@ button {
 	cursor: pointer;
 }
 
+img {
+	display: block;
+	margin: none;
+}
+
 /* ====== */
 :root {
 	font-family:
@@ -47,13 +52,12 @@ button {
 		0px 8px 16px rgba(0, 0, 0, 0.16), 0px 14px 20px rgba(0, 0, 0, 0.12);
 }
 
-/* 
 body {
-	height: 100dvh;
-} 
-*/
+	transition: background-image 5s ease;
+}
 
-.edit-location-fab {
+.edit-location-fab,
+.convert-temp-fab {
 	position: fixed;
 	z-index: 2;
 	right: 1rem;
@@ -64,6 +68,30 @@ body {
 	box-shadow: var(--elevation-3);
 	background-color: rgb(var(--primary));
 	color: rgb(var(--on-primary));
+}
+
+.edit-location-fab:hover {
+	background-color: hsl(from rgb(var(--primary)) h s 30%);
+	box-shadow: var(--elevation-4);
+	scale: 1.05;
+}
+
+.convert-temp-fab {
+	font-weight: bold;
+	width: 2.5rem;
+	height: 2.5rem;
+	bottom: 4rem;
+	background-color: rgb(var(--primary-container));
+	color: rgb(var(--on-primary-container));
+	border: 2px solid rgb(var(--on-primary-container));
+	box-shadow: var(--elevation-2);
+}
+
+.convert-temp-fab:hover {
+	color: hsl(from rgb(var(--on-primary-container)) h s 30%);
+	border: 2px solid hsl(from rgb(var(--on-primary-container)) h s 30%);
+	box-shadow: var(--elevation-4);
+	scale: 1.05;
 }
 
 main {
@@ -112,6 +140,11 @@ main {
 	background-color: rgb(var(--primary));
 	color: rgb(var(--on-primary));
 	border-radius: 0.25rem;
+}
+
+.arrow-button:hover {
+	background-color: hsl(from rgb(var(--primary)) h s 30%);
+	scale: 1.05;
 }
 
 .weather-data-card > .heading-subtitle {
@@ -223,9 +256,10 @@ main {
 }
 
 .weather-data-card > .generated-gif-image {
-	width: 100%;
-	height: 300px;
+	width: 86%;
+	height: 380px;
 	border-radius: 0.25rem;
+	margin: 0 auto;
 }
 
 .skeleton-loader > p,
@@ -242,6 +276,7 @@ main {
 }
 
 footer {
+	width: 100%;
 	margin-top: 2rem;
 	background-color: rgb(var(--secondary));
 	color: rgb(var(--on-secondary));
@@ -253,9 +288,11 @@ footer {
 }
 
 footer > a {
+	width: 100dvw;
 	display: flex;
 	gap: 0.25rem;
 	align-items: center;
+	justify-content: center;
 }
 
 footer > a > svg {
@@ -281,6 +318,15 @@ dialog.edit-location-modal {
 	color: rgb(var(--primary));
 }
 
+.close-btn:hover {
+	color: rgb(var(--error));
+}
+
+.close-btn:disabled {
+	display: none;
+	color: rgb(var(--outline));
+}
+
 .edit-location-modal > form {
 	margin-top: 0.25rem;
 	display: flex;
@@ -296,6 +342,11 @@ dialog.edit-location-modal {
 	padding: 0.25rem;
 }
 
+.confirm-location-btn:hover {
+	background-color: hsl(from rgb(var(--primary)) h s 30%);
+	scale: 1.05;
+}
+
 /* SKELETON LOADER ANIMATION KEYFRAME */
 @keyframes skeleton-loading {
 	0% {
@@ -306,5 +357,153 @@ dialog.edit-location-modal {
 	100% {
 		background-color: rgb(var(--outline));
 		color: rgb(var(--outline));
+	}
+}
+
+@media (width >= 40rem) {
+	.weather-data-card {
+		width: 80dvw;
+		padding: 1.5rem 1.25rem;
+	}
+
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	dialog.edit-location-modal {
+		width: 60dvw;
+		padding: 1.5rem 1rem;
+	}
+
+	.data > .badge {
+		width: 120px;
+		height: 120px;
+	}
+
+	.edit-location-modal > form > input {
+		width: 100%;
+		padding: 0.25rem;
+	}
+
+	.edit-location-modal > form > .confirm-location-btn {
+		padding: 0.5rem;
+	}
+
+	.weather-data-card > .generated-gif-image {
+		margin: 0 auto;
+	}
+
+	.data > .badge:first-of-type {
+		justify-self: right;
+	}
+
+	.data > .badge:nth-of-type(3) {
+		justify-self: left;
+	}
+}
+
+@media (width >= 48rem) {
+	.weather-data-card {
+		width: 70dvw;
+	}
+}
+
+@media (width >= 64rem) {
+	.weather-data-card {
+		width: 50dvw;
+	}
+
+	dialog.edit-location-modal {
+		width: 40dvw;
+	}
+
+	.data > .badge {
+		width: 130px;
+		height: 130px;
+	}
+
+	.heading-subtitle > h1 {
+		font-size: 2.25rem;
+	}
+
+	.heading-subtitle > p {
+		font-size: 1rem;
+	}
+
+	.data > .badge > h2 span {
+		font-size: 1rem;
+	}
+
+	.data > .badge > p {
+		font-size: 2rem;
+	}
+}
+
+@media (width >= 80rem) {
+	.date-selection {
+		font-size: 1.25rem;
+	}
+
+	.weather-data-card > .long-description {
+		font-size: 1rem;
+	}
+
+	.data > .badge {
+		width: 150px;
+		height: 150px;
+	}
+
+	.heading-subtitle > h1 {
+		font-size: 2.5rem;
+	}
+
+	.heading-subtitle > p {
+		font-size: 1rem;
+	}
+
+	.data > .badge > h2 span {
+		font-size: 1.25rem;
+	}
+
+	.data > .badge > p {
+		font-size: 2.25rem;
+	}
+
+	.data > .card > h2 {
+		font-size: 1.5rem;
+	}
+
+	.data > .card > p span:first-child {
+		font-size: 1.75rem;
+	}
+
+	.data > .card > p span:last-child {
+		font-size: 1rem;
+	}
+
+	footer {
+		height: fit-content;
+		padding: 1.25rem 0;
+	}
+
+	footer > a {
+		font-size: 1.25rem;
+	}
+}
+
+@media (width >= 96rem) {
+	.weather-data-card {
+		width: 40dvw;
+		padding: 2rem;
+	}
+
+	dialog.edit-location-modal {
+		width: 30dvw;
+	}
+
+	.date-selection {
+		font-size: 1.5rem;
 	}
 }

@@ -23,6 +23,7 @@ import WeatherDomHandler from "./services/weatherDomHandler.js";
 /* ============= */
 
 const bodyElement = document.querySelector("body");
+const convertTempElement = document.querySelector(".convert-temp-fab");
 const editLocationModalElement = document.querySelector(".edit-location-modal");
 const editLocationFabElement = document.querySelector(".edit-location-fab");
 const weatherDataCardElement = document.querySelector(".weather-data-card");
@@ -35,7 +36,10 @@ const locationHandler = new LocationHandler(
 );
 
 const weatherDataHandler = new WeatherDataHandler();
-const weatherDomHandler = new WeatherDomHandler(weatherDataCardElement);
+const weatherDomHandler = new WeatherDomHandler(
+	weatherDataCardElement,
+	convertTempElement,
+);
 
 dynamicColorThemeGenerator.initDefaultTheme();
 locationHandler.initLocationHandler();
