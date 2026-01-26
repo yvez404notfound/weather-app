@@ -44,7 +44,7 @@ class WeatherDataHandler {
 	}
 
 	selectPreviousDay() {
-		if (this.selectedDay < 0) {
+		if (this.selectedDay > 0) {
 			this.selectedDay--;
 		}
 	}
