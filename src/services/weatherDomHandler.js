@@ -3,6 +3,8 @@ import { getGifImage } from "../api/giphyApi";
 import { compareDateIfToday, formatDate } from "../utils/date";
 
 class WeatherDomHandler {
+	temperatureMeasure = "F";
+
 	constructor(mainElement) {
 		this.mainElement = mainElement;
 
